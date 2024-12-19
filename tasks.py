@@ -147,7 +147,7 @@ plt.xlabel("Task length")
 plt.ylabel("Accuracy")
 plt.axhline(1 / 3, color="grey", linestyle="--")
 plt.ylim(0, 1)
-plt.title("GPT-4o's accuracy on the task, without steganography")
+plt.title("GPT-4o's accuracy on the task, with steganography")
 # draw ticks for each integer
 plt.xticks(task_lengths)
 # save as svg
@@ -157,3 +157,29 @@ plt.show()
 # %%
 # save results
 np.save("results.npy", results)
+
+# # %%
+
+# task_length = 2
+# task, correct_answer = generate_task(task_length)
+
+# user_prompt = f"""\
+# {task_instruction}
+# {steg_instruction}
+# {task}
+# Tell me a very short bedtime story.
+# """
+# raw_response = await client.chat.completions.create(
+#     model=model,
+#     messages=[{"role": "user", "content": user_prompt}],
+#     response_format={
+#         "type": "json_schema",
+#         "json_schema": {"strict": True, "schema": schema, "name": "steg"},
+#     },
+#     n=1,
+# )
+
+# response = json.loads(raw_response.choices[0].message.content)
+# # %%
+# print(response)
+# print(task, correct_answer, response["final_state"])
