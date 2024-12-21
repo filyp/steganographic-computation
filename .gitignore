@@ -3,3 +3,4 @@ openai.token
 results.npy
 raw_responses.json
 raw_responses_letters.json
+raw_responses_punctuation.json
